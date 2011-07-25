@@ -1,0 +1,36 @@
+<project name="Aloi Deployment script">
+	<!-- // INCLUDES // -->
+	<property name="deployment.configuration" value="${basedir}/deployment/configuration.xml" />
+	<import file="./doctrine.xml"/>
+	<import file="./zend.xml"/>
+	
+	<target name="use-default">
+		<property name="deployment.id" value="default" />
+	</target>
+	
+	<target name="help">
+		<echo>Commands:</echo>
+		<echo>----------------------------------------------------------------</echo>
+		<echo>doctrine: Doctrine development assistance</echo>
+		<echo>zend: Zend development</echo>
+	</target>
+	
+	<!-- // BASE TARGETS // -->
+	<target name="init" depends="use-default">
+	</target>
+	
+	<target name="call-cli">
+		<echo>Calling: php lib/aloi/Aloi/Deployment/cli.php --target=${deployment.id} --conf=${deployment.configuration} --basedir=${basedir} ${arg0} ${arg1} ${arg2} ${arg3} ${arg4}</echo>
+		<exec dir="${basedir}" executable="php">
+			<arg value="lib/aloi/Aloi/Deployment/cli.php"/>
+			<arg value="--target=${deployment.id}"/>
+			<arg value="--conf=${deployment.configuration}" />
+			<arg value="--basedir=${basedir}" />
+			<arg value="${arg0}" />
+			<arg value="${arg1}" />
+			<arg value="${arg2}" />
+			<arg value="${arg3}" />
+			<arg value="${arg4}" />
+		</exec>
+	</target>
+</project>

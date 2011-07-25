@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Zend Framework build script">
+	<property name="zend.lib" value="${basedir}/lib/zend" />
+	<property name="zend.lib.source" value="http://framework.zend.com/releases/ZendFramework-1.11.0/ZendFramework-1.11.0.tar.gz" />
+	<property name="zend.lib.source.version" value="ZendFramework-1.11.0" />
+	
+	
+	<target name="zend">
+		<echo>Zend Framework:</echo>
+		<echo>-----------------------------------------------------------------------</echo>
+		<echo>zend-package-download: Zend Framework Download</echo>
+	</target>
+
+
+	<target name="zend-init" depends="init">
+	</target>
+
+	<target name="zend-package-download" depends="zend-init">
+		<echo>Obtaining ${zend.lib.source.version}</echo>
+		<available 
+            file="${zend.lib}"
+            type="dir"
+            property="zend.lib.present" />
+		<fail message="The ${zend.lib} folder already exists - exiting">
+			<condition>
+				<isset property="zend.lib.present" />
+			</condition>
+		</fail>
+		<mkdir dir="${zend.lib}-temp" />
+		<get src="${zend.lib.source}" dest="${zend.lib}-temp/${zend.lib.source.version}-package.tgz" />
+		<untar src="${zend.lib}-temp/${zend.lib.source.version}-package.tgz" compression="gzip" dest="${zend.lib}-temp" />
+		<mkdir dir="${zend.lib}" />
+		<move todir="${zend.lib}">
+			<fileset dir="${zend.lib}-temp/${zend.lib.source.version}/library" />
+		</move>
+		<delete dir="${zend.lib}-temp" />
+	</target>
+	
+</project>

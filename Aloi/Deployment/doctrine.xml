@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Doctrine build script">
+	<property name="doctrine.settings.file" value="WebRoot/WEB-INF/settings/doctrine.php" />
+	<property name="doctrine.lib" value="${basedir}/lib/doctrine" />
+	<property name="doctrine.lib.source" value="http://www.doctrine-project.org/downloads/Doctrine-1.2.3.tgz" />
+	<property name="doctrine.lib.source.version" value="Doctrine-1.2.3" />
+
+	<target name="doctrine">
+		<echo>Doctrine Help Overview:</echo>
+		<echo>-----------------------------------------------------------------------
+		</echo>
+		<echo>doctrine-package-download: Download Doctrine 1.2.3 into the lib/doctrine directory</echo>
+		<echo>doctrine-configure: Configures the settings file for doctrine plug-in</echo>
+		<echo>doctrine-build-all</echo>
+		<echo>doctrine-build-all-reload</echo>
+		<echo>doctrine-compile</echo>
+		<echo>doctrine-create-db</echo>
+		<echo>doctrine-create-tables</echo>
+		<echo>doctrine-dql</echo>
+		<echo>doctrine-drop-db</echo>
+		<echo>doctrine-dump-data</echo>
+		<echo>doctrine-generate-migration</echo>
+		<echo>doctrine-generate-migrations-db</echo>
+		<echo>doctrine-generate-migrations-diff</echo>
+		<echo>doctrine-generate-migrations-models</echo>
+		<echo>doctrine-generate-models-db</echo>
+		<echo>doctrine-generate-models-yaml</echo>
+		<echo>doctrine-generate-sql</echo>
+		<echo>doctrine-generate-yaml-db</echo>
+		<echo>doctrine-generate-yaml-models</echo>
+		<echo>doctrine-load-data</echo>
+		<echo>doctrine-migrate</echo>
+		<echo>doctrine-rebuild-db</echo>
+	</target>
+
+	<target name="doctrine-configure" depends="init, doctrine-init">
+		<echo>Configuring doctrine using ${deployment.id}</echo>
+		<antcall target="call-cli">
+			<param name="arg0"
+				value="--doctrine-settings-file=${doctrine.settings.file}" />
+			<param name="arg1" value="task" />
+			<param name="arg2" value="Aloi_Deployment_Task_Doctrine_Configure" />
+		</antcall>
+	</target>
+
+	<target name="doctrine-build-all" depends="init">
+		<antcall target="doctrine-wrapper">
+			<param name="doctrine.task" value="build-all" />
+		</antcall>
+	</target>
+
+	<target name="doctrine-build-all-reload" depends="init">
+		<antcall target="doctrine-wrapper">
+			<param name="doctrine.task" value="build-all-reload" />
+		</antcall>
+	</target>
+	<target name="doctrine-compile" depends="init">
+		<antcall target="doctrine-wrapper">
+			<param name="doctrine.task" value="compile" />
+		</antcall>
+	</target>
+	<target name="doctrine-create-db" depends="init">
+		<antcall target="doctrine-wrapper">
+			<param name="doctrine.task" value="create-db" />
+		</antcall>
+	</target>
+	<target name="doctrine-create-tables" depends="init">
+		<antcall target="doctrine-wrapper">
+			<param name="doctrine.task" value="create-tables" />
+		</antcall>
+	</target>
+	<target name="doctrine-dql" depends="init">
+		<antcall target="doctrine-wrapper">
+			<param name="doctrine.task" value="dql" />
+		</antcall>
+	</target>
+	<target name="doctrine-drop-db" depends="init">
+		<antcall target="doctrine-wrapper">
+			<param name="doctrine.task" value="drop-db" />
+		</antcall>
+	</target>
+	<target name="doctrine-dump-data" depends="init">
+		<antcall target="doctrine-wrapper">
+			<param name="doctrine.task" value="dump-data" />
+		</antcall>
+	</target>
+	<target name="doctrine-generate-migration" depends="init">
+		<antcall target="doctrine-wrapper">
+			<param name="doctrine.task" value="generate-migration" />
+		</antcall>
+	</target>
+	<target name="doctrine-generate-migrations-db" depends="init">
+		<antcall target="doctrine-wrapper">
+			<param name="doctrine.task" value="generate-migrations-db" />
+		</antcall>
+	</target>
+	<target name="doctrine-generate-migrations-diff" depends="init">
+		<antcall target="doctrine-wrapper">
+			<param name="doctrine.task" value="generate-migrations-diff" />
+		</antcall>
+	</target>
+	<target name="doctrine-generate-migrations-models" depends="init">
+		<antcall target="doctrine-wrapper">
+			<param name="doctrine.task" value="generate-migrations-models" />
+		</antcall>
+	</target>
+	<target name="doctrine-generate-models-db" depends="init">
+		<antcall target="doctrine-wrapper">
+			<param name="doctrine.task" value="generate-models-db" />
+		</antcall>
+	</target>
+	<target name="doctrine-generate-models-yaml" depends="init">
+		<antcall target="doctrine-wrapper">
+			<param name="doctrine.task" value="generate-models-yaml" />
+		</antcall>
+	</target>
+	<target name="doctrine-generate-sql" depends="init">
+		<antcall target="doctrine-wrapper">
+			<param name="doctrine.task" value="generate-sql" />
+		</antcall>
+	</target>
+	<target name="doctrine-generate-yaml-db" depends="init">
+		<antcall target="doctrine-wrapper">
+			<param name="doctrine.task" value="generate-yaml-db" />
+		</antcall>
+	</target>
+	<target name="doctrine-generate-yaml-models" depends="init">
+		<antcall target="doctrine-wrapper">
+			<param name="doctrine.task" value="generate-yaml-models" />
+		</antcall>
+	</target>
+	<target name="doctrine-load-data" depends="init">
+		<antcall target="doctrine-wrapper">
+			<param name="doctrine.task" value="load-data" />
+		</antcall>
+	</target>
+	<target name="doctrine-migrate" depends="init">
+		<antcall target="doctrine-wrapper">
+			<param name="doctrine.task" value="migrate" />
+		</antcall>
+	</target>
+	<target name="doctrine-rebuild-db" depends="init">
+		<antcall target="doctrine-wrapper">
+			<param name="doctrine.task" value="rebuild-db" />
+		</antcall>
+	</target>
+
+	<target name="doctrine-wrapper">
+		<antcall target="call-cli">
+			<param name="arg0" value="task" />
+			<param name="arg1" value="Aloi_Deployment_Task_Doctrine" />
+			<param name="arg2" value="doctrine" />
+			<param name="arg3" value="${doctrine.task}" />
+			<param name="arg4" value="" />
+		</antcall>
+	</target>
+
+	<target name="doctrine-init" depends="init">
+		<mkdir dir="${basedir}/src" />
+		<mkdir dir="${basedir}/src/Fixtures" />
+		<mkdir dir="${basedir}/src/Model" />
+		<mkdir dir="${basedir}/WebRoot/WEB-INF/settings" />
+	</target>
+	
+	<target name="doctrine-package-download" depends="doctrine-init">
+		<echo>Obtaining ${doctrine.lib.source.version}</echo>
+		<available 
+            file="${doctrine.lib}"
+            type="dir"
+            property="doctrine.lib.present" />
+		<fail message="The ${doctrine.lib} folder already exists - exiting">
+			<condition>
+				<isset property="doctrine.lib.present" />
+			</condition>
+		</fail>
+		<mkdir dir="${doctrine.lib}-temp" />
+		<get src="${doctrine.lib.source}" dest="${doctrine.lib}-temp/${doctrine.lib.source.version}-package.tgz" />
+		<untar src="${doctrine.lib}-temp/${doctrine.lib.source.version}-package.tgz" compression="gzip" dest="${doctrine.lib}-temp" />
+		<mkdir dir="${doctrine.lib}" />
+		<move todir="${doctrine.lib}">
+			<fileset dir="${doctrine.lib}-temp/${doctrine.lib.source.version}" />
+		</move>
+		<delete dir="${doctrine.lib}-temp" />
+	</target>
+
+	<target name="doctrine-clean">
+	</target>
+</project>
